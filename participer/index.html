@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SIABIMS — Participez au test</title>
+<title>SIABIMS - Participez au test</title>
 <meta name="description" content="Aidez-nous à tester SIABIMS : enrôlez votre visage (avec consentement) pour permettre à l'équipe de mesurer l'identification biométrique d'urgence.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,27 +113,27 @@
     <div class="steplabel" id="steplabel">Étape 1 sur 5</div>
     <div class="steptitle" id="steptitle">Le projet</div>
 
-    <!-- ÉTAPE 1 — Description -->
+    <!-- ÉTAPE 1 - Description -->
     <section class="step" data-step="1">
       <div class="card">
         <div class="hero-ic">🚑</div>
-        <p>Quand une victime arrive <b>inconsciente ou sans papiers</b> aux urgences, les soignants ne connaissent ni son groupe sanguin, ni ses allergies, ni ses traitements — un vrai danger.</p>
+        <p>Quand une victime arrive <b>inconsciente ou sans papiers</b> aux urgences, ou lors d'un <b>accident de la route</b>, les soignants ne connaissent ni son groupe sanguin, ni ses allergies, ni ses traitements, et c'est un vrai danger.</p>
         <p><b>SIABIMS</b> retrouve son <b>dossier médical vital en moins de 5 secondes</b>, à partir d'un simple <b>scan du visage</b>, pour que les secours agissent vite et juste.</p>
       </div>
     </section>
 
-    <!-- ÉTAPE 2 — Pourquoi participer -->
+    <!-- ÉTAPE 2 - Pourquoi participer -->
     <section class="step" data-step="2" hidden>
       <div class="card">
         <div class="feats">
           <div class="feat"><div class="n">1</div><div><b>Pour tester, il faut des visages enrôlés</b><span>Le système ne reconnaît que les personnes déjà enregistrées. Votre enrôlement rend le test possible.</span></div></div>
-          <div class="feat"><div class="n">2</div><div><b>En conditions réelles</b><span>Plein soleil, faible lumière, angles variés — on mesure la fiabilité là où ça compte vraiment.</span></div></div>
+          <div class="feat"><div class="n">2</div><div><b>En conditions réelles</b><span>Plein soleil, faible lumière, angles variés - on mesure la fiabilité là où ça compte vraiment.</span></div></div>
           <div class="feat"><div class="n">3</div><div><b>Zéro risque pour vous</b><span>Aucune donnée médicale n'est demandée. On teste seulement la reconnaissance de l'identité.</span></div></div>
         </div>
       </div>
     </section>
 
-    <!-- ÉTAPE 3 — Données & consentement -->
+    <!-- ÉTAPE 3 - Données & consentement -->
     <section class="step" data-step="3" hidden>
       <div class="card">
         <ul class="privacy-list">
@@ -149,7 +149,7 @@
       </div>
     </section>
 
-    <!-- ÉTAPE 4 — Enrôlement -->
+    <!-- ÉTAPE 4 - Enrôlement -->
     <section class="step" data-step="4" hidden>
       <div class="card">
         <form onsubmit="return false">
@@ -160,7 +160,7 @@
           <div class="row">
             <div><label class="f">Naissance <span class="req">*</span></label><input id="dnais" type="date"></div>
             <div><label class="f">Sexe <span class="req">*</span></label>
-              <select id="sexe"><option value="">—</option><option value="M">Masculin</option><option value="F">Féminin</option></select></div>
+              <select id="sexe"><option value="">-</option><option value="M">Masculin</option><option value="F">Féminin</option></select></div>
           </div>
           <div><label class="f">Ville</label><input id="ville" placeholder="Cotonou, Porto-Novo…" autocomplete="address-level2"></div>
           <div>
@@ -174,20 +174,20 @@
           <button class="btn ghost" id="btn-cam" type="button">Activer la caméra</button>
           <button class="btn ghost" id="btn-shot" type="button" style="display:none">Capturer la photo</button>
           <button class="btn ghost" id="btn-retry" type="button" style="display:none">Reprendre la photo</button>
-          <div class="note">🔑 Aucun code à saisir — votre code de test est attribué automatiquement.</div>
+          <div class="note">🔑 Aucun code à saisir - votre code de test est attribué automatiquement.</div>
           <div id="msg"></div>
         </form>
       </div>
     </section>
 
-    <!-- ÉTAPE 5 — NPI attribué -->
+    <!-- ÉTAPE 5 - NPI attribué -->
     <section class="step" data-step="5" hidden>
       <div class="card done">
         <div class="big">✓</div>
         <div class="steptitle" style="font-size:1.3rem">Vous êtes enrôlé, merci !</div>
         <div class="npi-box">
           <div class="k">Votre numéro d'identification (NPI)</div>
-          <div class="npi" id="done-npi">—</div>
+          <div class="npi" id="done-npi">-</div>
         </div>
         <div class="phase2">📱 <span><b>Notez bien ce numéro.</b> Il vous est attribué et servira à la <b>phase 2 du test</b>, sur l'application mobile SIABIMS, pour vérifier que le système vous identifie correctement.</span></div>
         <p style="margin-top:14px;font-size:.9rem">Vous pouvez fermer cette page. Merci pour votre participation !</p>
@@ -202,7 +202,7 @@
 
     <footer>
       <svg class="flag" width="18" height="12" viewBox="0 0 30 20" preserveAspectRatio="none" aria-label="Drapeau du Bénin"><rect width="30" height="20" fill="#FCD116"/><rect y="10" width="30" height="10" fill="#E8352F"/><rect width="12" height="20" fill="#008751"/></svg>
-      &nbsp; République du Bénin · SIABIMS — prototype académique · données de test, conformité APDP.
+      &nbsp; République du Bénin · SIABIMS - prototype académique · données de test, conformité APDP.
     </footer>
   </div>
 
@@ -291,7 +291,7 @@
       const r = await fetch(API + "/anip/enroler-public", { method: "POST", body: fd });
       const d = await r.json();
       if (!r.ok) { msg(d.detail || "Échec de l'enrôlement.", false); $("btn-next").disabled = false; return; }
-      enrolled = true; $("done-npi").textContent = d.npi || "—"; go(5);
+      enrolled = true; $("done-npi").textContent = d.npi || "-"; go(5);
     } catch (e) { msg("Erreur réseau : " + e.message, false); $("btn-next").disabled = false; }
   }
 
