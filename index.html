@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIABIMS — Application mobile</title>
+<meta name="description" content="Téléchargez l'application mobile SIABIMS pour l'identification biométrique des patients en urgence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#fbfcfb;--panel:#fff;--ink:#182420;--soft:#5c675f;--muted:#8a958d;--hair:#e4eae6;--green:#00A651;--edge:#00803e;--soft-green:#ddf4e7}
+  @media (prefers-color-scheme:dark){:root{--bg:#0b1310;--panel:#111a15;--ink:#e9f1ec;--soft:#9fb0a7;--muted:#6f8078;--hair:#212e27;--green:#18bd6b;--edge:#0c9a54;--soft-green:#10261a}}
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px 20px 40px}
+  .tricolor{position:fixed;top:0;left:0;right:0;height:6px;display:flex}.tricolor i{flex:1}
+  .fg{background:#00A651}.fy{background:#FCD116}.fr{background:#E8352F}
+  .card{background:var(--panel);border:1px solid var(--hair);border-radius:26px;max-width:440px;width:100%;padding:34px 26px 30px;text-align:center;box-shadow:0 20px 50px -28px rgba(20,40,30,.4);margin-top:24px}
+  .logo{width:84px;height:84px;border-radius:24px;background:var(--green);display:grid;place-items:center;margin:0 auto 18px;box-shadow:0 10px 0 var(--edge)}
+  h1{font-size:1.9rem;font-weight:900;letter-spacing:.5px}
+  .sub{color:var(--muted);font-weight:700;font-size:.9rem;margin-top:4px}
+  .lead{color:var(--soft);font-weight:600;font-size:.95rem;margin:18px 4px 22px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--green);color:#fff;font-weight:900;font-size:1.02rem;text-transform:uppercase;letter-spacing:.5px;text-decoration:none;padding:16px;border-radius:16px;border-bottom:5px solid var(--edge)}
+  .btn:active{transform:translateY(3px);border-bottom-width:2px}
+  .meta{font-size:.78rem;color:var(--muted);font-weight:700;margin-top:10px}
+  .steps{text-align:left;margin-top:26px;display:flex;flex-direction:column;gap:14px}
+  .step{display:flex;gap:12px;align-items:flex-start}
+  .num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--soft-green);color:var(--edge);font-weight:900;font-size:.82rem;display:grid;place-items:center}
+  .step b{font-weight:900;font-size:.92rem}.step span{display:block;color:var(--soft);font-size:.84rem;font-weight:600}
+  .foot{color:var(--muted);font-size:.76rem;font-weight:700;margin-top:26px;text-align:center;max-width:440px}
+  .flag{display:inline-flex;height:10px;border-radius:2px;overflow:hidden;vertical-align:middle;box-shadow:0 0 0 1px var(--hair)}.flag i{display:block;width:6px}
+</style>
+</head>
+<body>
+  <div class="tricolor"><i class="fg"></i><i class="fy"></i><i class="fr"></i></div>
+  <div class="card">
+    <div class="logo">
+      <svg width="50" height="50" viewBox="0 0 96 96"><g transform="translate(16,16) scale(0.667)">
+        <g fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round">
+          <path d="M48 12 a36 36 0 0 1 36 36"/><path d="M12 48 a36 36 0 0 1 22 -33"/><path d="M84 60 a36 36 0 0 1 -22 22"/>
+          <path d="M48 24 a24 24 0 0 1 24 24" opacity=".72"/><path d="M24 48 a24 24 0 0 1 14 -22" opacity=".72"/>
+        </g>
+        <g fill="#fff"><rect x="42" y="34" width="12" height="28" rx="4"/><rect x="34" y="42" width="28" height="12" rx="4"/></g>
+      </g></svg>
+    </div>
+    <h1>SIABIMS</h1>
+    <div class="sub">Identification biométrique d'urgence · Bénin</div>
+    <p class="lead">Installez l'application mobile pour identifier un patient sur le terrain, à l'accueil ou au poste de garde.</p>
+
+    <a class="btn" href="https://github.com/jocha28/siabims-app/releases/latest/download/SIABIMS.apk">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 3v10m0 0l-4-4m4 4l4-4M5 21h14" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Télécharger pour Android
+    </a>
+    <div class="meta">Fichier .apk · Android · installation directe</div>
+
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div><b>Télécharger</b><span>Appuyez sur le bouton ci-dessus pour récupérer le fichier .apk.</span></div></div>
+      <div class="step"><div class="num">2</div><div><b>Autoriser l'installation</b><span>Android demandera d'autoriser les « sources inconnues » — acceptez pour cette app.</span></div></div>
+      <div class="step"><div class="num">3</div><div><b>Ouvrir et se connecter</b><span>Lancez SIABIMS et connectez-vous avec vos identifiants professionnels.</span></div></div>
+    </div>
+  </div>
+  <p class="foot"><span class="flag"><i class="fg"></i><i class="fy"></i><i class="fr"></i></span>&nbsp; République du Bénin · SIABIMS — prototype académique. Déjà installée ? Ouvrez simplement l'application et connectez-vous.</p>
+</body>
+</html>
