@@ -9,39 +9,50 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#fbfcfb;--panel:#fff;--ink:#182420;--soft:#5c675f;--muted:#8a958d;--hair:#e4eae6;--green:#00A651;--edge:#00803e;--soft-green:#ddf4e7;--red:#E8352F;--warn:#B67A00;--warn-soft:#fff4d6}
-  @media (prefers-color-scheme:dark){:root{--bg:#0b1310;--panel:#111a15;--ink:#e9f1ec;--soft:#9fb0a7;--muted:#6f8078;--hair:#212e27;--green:#18bd6b;--edge:#0c9a54;--soft-green:#10261a;--warn:#e8b74a;--warn-soft:#241f10}}
+  :root{--bg:#fbfcfb;--panel:#fff;--ink:#182420;--soft:#5c675f;--muted:#8a958d;--hair:#e4eae6;--green:#00A651;--edge:#00803e;--soft-green:#ddf4e7;--red:#E8352F;--warn-soft:#fff4d6}
+  @media (prefers-color-scheme:dark){:root{--bg:#0b1310;--panel:#111a15;--ink:#e9f1ec;--soft:#9fb0a7;--muted:#6f8078;--hair:#212e27;--green:#18bd6b;--edge:#0c9a54;--soft-green:#10261a;--warn-soft:#241f10}}
   *{box-sizing:border-box;margin:0}
   body{background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
   .tricolor{position:sticky;top:0;height:6px;display:flex;z-index:20}.tricolor i{flex:1}
   .fg{background:#00A651}.fy{background:#FCD116}.fr{background:#E8352F}
-  .wrap{max-width:640px;margin:0 auto;padding:0 18px}
-  header.top{text-align:center;padding:34px 0 8px}
-  .logo{width:74px;height:74px;border-radius:22px;background:var(--green);display:grid;place-items:center;margin:0 auto 14px;box-shadow:0 9px 0 var(--edge)}
-  h1{font-size:clamp(1.7rem,5vw,2.3rem);font-weight:900;letter-spacing:.3px;line-height:1.12;text-wrap:balance}
-  .sub{color:var(--muted);font-weight:800;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;margin-top:6px}
-  .lead{color:var(--soft);font-weight:600;font-size:1.02rem;margin:16px auto 0;max-width:34em}
-  section.blk{margin:26px 0}
-  .card{background:var(--panel);border:1px solid var(--hair);border-radius:20px;padding:22px 20px;box-shadow:0 14px 32px -22px rgba(20,40,30,.4)}
-  h2{font-size:1.2rem;font-weight:900;margin-bottom:8px;display:flex;align-items:center;gap:9px}
-  h2 .ic{width:30px;height:30px;border-radius:9px;background:var(--soft-green);color:var(--edge);display:grid;place-items:center;flex:none;font-size:1rem}
-  .card p{color:var(--soft);font-weight:600;font-size:.96rem}
-  .card p + p{margin-top:10px}
-  .card b{color:var(--ink);font-weight:800}
-  .feats{display:flex;flex-direction:column;gap:12px;margin-top:6px}
-  .feat{display:flex;gap:11px;align-items:flex-start}
-  .feat .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-weight:900;font-size:.82rem;display:grid;place-items:center}
-  .feat b{display:block;font-weight:900;font-size:.95rem;color:var(--ink)}
-  .feat span{color:var(--soft);font-size:.9rem;font-weight:600}
-  .privacy{background:var(--soft-green);border:1px solid #a8e6c4;border-radius:16px;padding:18px 18px}
-  @media (prefers-color-scheme:dark){.privacy{border-color:#1c4b34}}
-  .privacy h2 .ic{background:#fff}
-  .privacy ul{margin:8px 0 0;padding-left:1.1rem;color:var(--soft);font-weight:600;font-size:.92rem;display:flex;flex-direction:column;gap:6px}
-  .privacy ul b{color:var(--ink)}
+  .wrap{max-width:620px;margin:0 auto;padding:0 18px 40px}
 
-  /* ── Formulaire d'enrôlement ── */
+  header.top{display:flex;align-items:center;gap:11px;padding:20px 0 14px}
+  .logo{width:44px;height:44px;border-radius:13px;background:var(--green);display:grid;place-items:center;flex:none;box-shadow:0 5px 0 var(--edge)}
+  header .t b{font-weight:900;font-size:1.05rem;display:block;line-height:1.1}
+  header .t span{font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+
+  /* ── Barre d'étapes ── */
+  .stepper{display:flex;align-items:center;margin:6px 0 4px}
+  .stepper .dot{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:.85rem;
+    background:var(--panel);border:2px solid var(--hair);color:var(--muted);transition:all .25s}
+  .stepper .dot.done{background:var(--green);border-color:var(--green);color:#fff}
+  .stepper .dot.cur{background:var(--soft-green);border-color:var(--green);color:var(--edge)}
+  .stepper .bar{flex:1;height:3px;background:var(--hair);margin:0 4px;border-radius:2px;overflow:hidden;position:relative}
+  .stepper .bar.done{background:var(--green)}
+  .steplabel{font-size:.78rem;font-weight:800;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin:10px 0 2px}
+  .steptitle{font-size:1.55rem;font-weight:900;letter-spacing:-.01em;line-height:1.15;text-wrap:balance;margin-bottom:16px}
+
+  .card{background:var(--panel);border:1px solid var(--hair);border-radius:20px;padding:22px 20px;box-shadow:0 14px 32px -24px rgba(20,40,30,.4)}
+  .card p{color:var(--soft);font-weight:600;font-size:1rem}
+  .card p + p{margin-top:12px}
+  .card b{color:var(--ink);font-weight:800}
+  .hero-ic{width:70px;height:70px;border-radius:20px;background:var(--soft-green);color:var(--edge);display:grid;place-items:center;font-size:2rem;margin:0 auto 14px}
+  .feats{display:flex;flex-direction:column;gap:14px}
+  .feat{display:flex;gap:12px;align-items:flex-start}
+  .feat .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-weight:900;font-size:.85rem;display:grid;place-items:center}
+  .feat b{display:block;font-weight:900;font-size:.98rem;color:var(--ink)}
+  .feat span{color:var(--soft);font-size:.92rem;font-weight:600}
+  .privacy-list{margin:4px 0 0;padding-left:1.1rem;color:var(--soft);font-weight:600;font-size:.95rem;display:flex;flex-direction:column;gap:8px}
+  .privacy-list b{color:var(--ink)}
+  .consent{display:flex;gap:11px;align-items:flex-start;background:var(--warn-soft);border:1.5px solid #ecd9a3;border-radius:14px;padding:14px 15px;margin-top:18px}
+  @media (prefers-color-scheme:dark){.consent{border-color:#4a3f1c}}
+  .consent input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--green)}
+  .consent label{font-weight:700;font-size:.9rem;color:var(--soft)}
+
+  /* ── Formulaire ── */
   form{display:flex;flex-direction:column;gap:14px}
-  label{font-weight:900;font-size:.82rem;display:block;margin-bottom:5px}
+  label.f{font-weight:900;font-size:.82rem;display:block;margin-bottom:5px}
   .req{color:var(--red)}
   input,select{width:100%;font-family:inherit;font-size:1rem;font-weight:700;color:var(--ink);background:var(--bg);border:2px solid var(--hair);border-radius:13px;padding:12px 14px}
   input:focus,select:focus{outline:none;border-color:var(--green)}
@@ -49,23 +60,31 @@
   .cam{position:relative;background:#000;border-radius:16px;overflow:hidden;border:2px solid var(--hair);aspect-ratio:4/3;display:grid;place-items:center}
   .cam video,.cam img{width:100%;height:100%;object-fit:cover;display:block}
   .cam .ph{color:#9aa;font-size:.85rem;font-weight:700;padding:20px;text-align:center}
-  .consent{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);border:1.5px solid #ecd9a3;border-radius:13px;padding:12px 14px}
-  @media (prefers-color-scheme:dark){.consent{border-color:#4a3f1c}}
-  .consent input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--green)}
-  .consent label{font-weight:700;font-size:.86rem;color:var(--soft);margin:0}
+  .note{font-size:.82rem;font-weight:700;color:var(--muted);display:flex;gap:7px;align-items:center;background:var(--bg);border:1.5px dashed var(--hair);border-radius:11px;padding:9px 12px}
+
   .btn{display:flex;align-items:center;justify-content:center;gap:9px;font-weight:900;font-size:1rem;text-transform:uppercase;letter-spacing:.4px;border:none;cursor:pointer;padding:15px;border-radius:15px;font-family:inherit;color:#fff;background:var(--green);border-bottom:5px solid var(--edge)}
   .btn:active{transform:translateY(3px);border-bottom-width:2px}
-  .btn:disabled{opacity:.55;cursor:not-allowed}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
   .btn.ghost{background:var(--panel);color:var(--ink);border:2px solid var(--hair);border-bottom:4px solid var(--hair)}
-  .msg{font-size:.9rem;font-weight:800;text-align:center;padding:8px;border-radius:10px}
-  .msg.err{color:var(--red);background:#fdecec}
-  .msg.ok{color:var(--edge);background:var(--soft-green)}
+  .navrow{display:flex;gap:12px;margin-top:18px}
+  .navrow .btn{flex:1}
+  .msg{font-size:.9rem;font-weight:800;text-align:center;padding:9px;border-radius:11px;margin-top:4px}
+  .msg.err{color:var(--red);background:#fdecec}.msg.ok{color:var(--edge);background:var(--soft-green)}
   @media (prefers-color-scheme:dark){.msg.err{background:#2a1513}}
-  .done{text-align:center;display:none}
-  .done .big{width:76px;height:76px;border-radius:50%;background:var(--soft-green);color:var(--edge);display:grid;place-items:center;margin:0 auto 14px;font-size:2.4rem}
-  .npi{font-family:ui-monospace,monospace;font-weight:900;font-size:1.2rem;color:var(--green);letter-spacing:1px}
-  footer{color:var(--muted);font-size:.78rem;font-weight:700;text-align:center;padding:24px 0 40px}
+
+  /* ── Étape 5 : NPI ── */
+  .done{text-align:center}
+  .done .big{width:78px;height:78px;border-radius:50%;background:var(--soft-green);color:var(--edge);display:grid;place-items:center;margin:0 auto 14px;font-size:2.5rem}
+  .npi-box{background:var(--soft-green);border:2px solid #a8e6c4;border-radius:16px;padding:16px;margin:16px 0}
+  @media (prefers-color-scheme:dark){.npi-box{border-color:#1c4b34}}
+  .npi-box .k{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--edge)}
+  .npi{font-family:ui-monospace,monospace;font-weight:900;font-size:1.9rem;color:var(--green);letter-spacing:2px;margin-top:4px}
+  .phase2{background:var(--bg);border:1.5px solid var(--hair);border-radius:13px;padding:13px 15px;font-size:.9rem;color:var(--soft);font-weight:600;text-align:left;display:flex;gap:10px;align-items:flex-start;margin-top:6px}
+
+  footer{color:var(--muted);font-size:.78rem;font-weight:700;text-align:center;padding:26px 0 10px}
   .flag{border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.15);vertical-align:middle}
+  .fade{animation:fade .25s ease}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+  @media (prefers-reduced-motion:reduce){.fade{animation:none}}
 </style>
 </head>
 <body>
@@ -73,93 +92,113 @@
   <div class="wrap">
     <header class="top">
       <div class="logo">
-        <svg width="46" height="46" viewBox="0 0 96 96"><g transform="translate(16,16) scale(0.667)">
+        <svg width="28" height="28" viewBox="0 0 96 96"><g transform="translate(16,16) scale(0.667)">
           <g fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round">
             <path d="M48 12 a36 36 0 0 1 36 36"/><path d="M12 48 a36 36 0 0 1 22 -33"/><path d="M84 60 a36 36 0 0 1 -22 22"/>
             <path d="M48 24 a24 24 0 0 1 24 24" opacity=".72"/><path d="M24 48 a24 24 0 0 1 14 -22" opacity=".72"/></g>
           <g fill="#fff"><rect x="42" y="34" width="12" height="28" rx="4"/><rect x="34" y="42" width="28" height="12" rx="4"/></g>
         </g></svg>
       </div>
-      <h1>Aidez-nous à sauver des vies aux urgences</h1>
-      <div class="sub">SIABIMS · Campagne de test · Bénin</div>
-      <p class="lead">En enrôlant votre visage (avec votre accord), vous permettez à notre équipe de <b>tester en conditions réelles</b> l'identification d'un patient en urgence. Quelques minutes suffisent.</p>
+      <div class="t"><b>SIABIMS</b><span>Campagne de test · Bénin</span></div>
     </header>
 
-    <section class="blk"><div class="card">
-      <h2><span class="ic">i</span> C'est quoi SIABIMS ?</h2>
-      <p>Quand une victime arrive <b>inconsciente ou sans papiers</b> aux urgences, les soignants ne connaissent ni son groupe sanguin, ni ses allergies, ni ses traitements — un vrai danger.</p>
-      <p>SIABIMS retrouve son <b>dossier médical vital en moins de 5 secondes</b> à partir d'un simple <b>scan du visage</b>, pour que les secours agissent vite et juste.</p>
-    </div></section>
+    <!-- Barre d'étapes -->
+    <div class="stepper" id="stepper">
+      <div class="dot" data-d="1">1</div><div class="bar" data-b="1"></div>
+      <div class="dot" data-d="2">2</div><div class="bar" data-b="2"></div>
+      <div class="dot" data-d="3">3</div><div class="bar" data-b="3"></div>
+      <div class="dot" data-d="4">4</div><div class="bar" data-b="4"></div>
+      <div class="dot" data-d="5">5</div>
+    </div>
+    <div class="steplabel" id="steplabel">Étape 1 sur 5</div>
+    <div class="steptitle" id="steptitle">Le projet</div>
 
-    <section class="blk"><div class="card">
-      <h2><span class="ic">?</span> Pourquoi votre participation compte</h2>
-      <div class="feats">
-        <div class="feat"><div class="n">1</div><div><b>Pour tester, il faut des visages enrôlés</b><span>Le système ne reconnaît que les personnes déjà enregistrées. Votre enrôlement rend le test possible.</span></div></div>
-        <div class="feat"><div class="n">2</div><div><b>En conditions réelles</b><span>Plein soleil, faible lumière, angles variés — on mesure la fiabilité là où ça compte vraiment.</span></div></div>
-        <div class="feat"><div class="n">3</div><div><b>Zéro risque pour vous</b><span>Aucune donnée médicale n'est demandée. On teste seulement la reconnaissance de l'identité.</span></div></div>
+    <!-- ÉTAPE 1 — Description -->
+    <section class="step" data-step="1">
+      <div class="card">
+        <div class="hero-ic">🚑</div>
+        <p>Quand une victime arrive <b>inconsciente ou sans papiers</b> aux urgences, les soignants ne connaissent ni son groupe sanguin, ni ses allergies, ni ses traitements — un vrai danger.</p>
+        <p><b>SIABIMS</b> retrouve son <b>dossier médical vital en moins de 5 secondes</b>, à partir d'un simple <b>scan du visage</b>, pour que les secours agissent vite et juste.</p>
       </div>
-    </div></section>
+    </section>
 
-    <section class="blk"><div class="privacy">
-      <h2><span class="ic">🔒</span> Vos données, votre consentement</h2>
-      <ul>
-        <li>On enregistre le <b>gabarit numérique</b> de votre visage (une suite de chiffres) et votre <b>photo d'enrôlement</b>, <b>uniquement</b> pour cette campagne de test.</li>
-        <li>Aucune <b>donnée médicale</b> n'est collectée.</li>
-        <li>Vos données sont marquées <b>« test »</b> et <b>supprimées</b> à la fin de la campagne.</li>
-        <li>Vous pouvez demander leur <b>retrait à tout moment</b> auprès de l'équipe SIABIMS.</li>
-      </ul>
-    </div></section>
-
-    <section class="blk"><div class="card">
-      <h2><span class="ic">✓</span> M'enrôler pour le test</h2>
-      <p style="margin-bottom:14px">Renseignez vos informations, cadrez votre visage, cochez le consentement puis validez.</p>
-
-      <form id="form" onsubmit="return false">
-        <div>
-          <label>Code de test <span class="req">*</span></label>
-          <input id="code" placeholder="Code fourni par l'équipe" autocomplete="off" />
+    <!-- ÉTAPE 2 — Pourquoi participer -->
+    <section class="step" data-step="2" hidden>
+      <div class="card">
+        <div class="feats">
+          <div class="feat"><div class="n">1</div><div><b>Pour tester, il faut des visages enrôlés</b><span>Le système ne reconnaît que les personnes déjà enregistrées. Votre enrôlement rend le test possible.</span></div></div>
+          <div class="feat"><div class="n">2</div><div><b>En conditions réelles</b><span>Plein soleil, faible lumière, angles variés — on mesure la fiabilité là où ça compte vraiment.</span></div></div>
+          <div class="feat"><div class="n">3</div><div><b>Zéro risque pour vous</b><span>Aucune donnée médicale n'est demandée. On teste seulement la reconnaissance de l'identité.</span></div></div>
         </div>
-        <div class="row">
-          <div><label>Nom <span class="req">*</span></label><input id="nom" autocomplete="family-name" /></div>
-          <div><label>Prénoms <span class="req">*</span></label><input id="prenoms" autocomplete="given-name" /></div>
-        </div>
-        <div class="row">
-          <div><label>Date de naissance <span class="req">*</span></label><input id="dnais" type="date" /></div>
-          <div><label>Sexe <span class="req">*</span></label>
-            <select id="sexe"><option value="">—</option><option value="M">Masculin</option><option value="F">Féminin</option></select>
-          </div>
-        </div>
-        <div><label>Ville</label><input id="ville" placeholder="Cotonou, Porto-Novo…" autocomplete="address-level2" /></div>
+      </div>
+    </section>
 
-        <div>
-          <label>Votre visage <span class="req">*</span></label>
-          <div class="cam" id="cam">
-            <video id="video" autoplay muted playsinline style="display:none"></video>
-            <img id="shot" alt="" style="display:none" />
-            <div class="ph" id="camph">La caméra s'activera ici.<br>Autorisez l'accès quand le navigateur le demande.</div>
-          </div>
-        </div>
-        <button class="btn ghost" id="btn-cam" type="button">Activer la caméra</button>
-        <button class="btn ghost" id="btn-shot" type="button" style="display:none">Capturer la photo</button>
-        <button class="btn ghost" id="btn-retry" type="button" style="display:none">Reprendre la photo</button>
-
+    <!-- ÉTAPE 3 — Données & consentement -->
+    <section class="step" data-step="3" hidden>
+      <div class="card">
+        <ul class="privacy-list">
+          <li>On enregistre le <b>gabarit numérique</b> de votre visage (une suite de chiffres) et votre <b>photo d'enrôlement</b>, <b>uniquement</b> pour cette campagne de test.</li>
+          <li>Aucune <b>donnée médicale</b> n'est collectée.</li>
+          <li>Vos données sont marquées <b>« test »</b> et <b>supprimées</b> à la fin de la campagne.</li>
+          <li>Vous pouvez demander leur <b>retrait à tout moment</b> auprès de l'équipe SIABIMS.</li>
+        </ul>
         <div class="consent">
-          <input type="checkbox" id="consent" />
-          <label for="consent">Je consens à ce que mon visage soit enrôlé pour la <b>campagne de test SIABIMS</b>, dans les conditions décrites ci-dessus (données de test, supprimées après, retrait possible).</label>
+          <input type="checkbox" id="consent">
+          <label for="consent">Je consens à ce que mon visage soit enrôlé pour la <b>campagne de test SIABIMS</b>, dans les conditions décrites ci-dessus.</label>
         </div>
-
-        <div id="msg"></div>
-        <button class="btn" id="btn-send" type="button" disabled>M'enrôler</button>
-      </form>
-
-      <div class="done" id="done">
-        <div class="big">✓</div>
-        <h2 style="justify-content:center">Merci, vous êtes enrôlé !</h2>
-        <p>Votre identifiant de test (NPI) :</p>
-        <p class="npi" id="done-npi"></p>
-        <p style="margin-top:12px">L'équipe SIABIMS peut maintenant tester l'identification sur vous. Vous pouvez fermer cette page.</p>
       </div>
-    </div></section>
+    </section>
+
+    <!-- ÉTAPE 4 — Enrôlement -->
+    <section class="step" data-step="4" hidden>
+      <div class="card">
+        <form onsubmit="return false">
+          <div class="row">
+            <div><label class="f">Nom <span class="req">*</span></label><input id="nom" autocomplete="family-name"></div>
+            <div><label class="f">Prénoms <span class="req">*</span></label><input id="prenoms" autocomplete="given-name"></div>
+          </div>
+          <div class="row">
+            <div><label class="f">Naissance <span class="req">*</span></label><input id="dnais" type="date"></div>
+            <div><label class="f">Sexe <span class="req">*</span></label>
+              <select id="sexe"><option value="">—</option><option value="M">Masculin</option><option value="F">Féminin</option></select></div>
+          </div>
+          <div><label class="f">Ville</label><input id="ville" placeholder="Cotonou, Porto-Novo…" autocomplete="address-level2"></div>
+          <div>
+            <label class="f">Votre visage <span class="req">*</span></label>
+            <div class="cam" id="cam">
+              <video id="video" autoplay muted playsinline style="display:none"></video>
+              <img id="shot" alt="" style="display:none">
+              <div class="ph" id="camph">La caméra s'activera ici.<br>Autorisez l'accès quand le navigateur le demande.</div>
+            </div>
+          </div>
+          <button class="btn ghost" id="btn-cam" type="button">Activer la caméra</button>
+          <button class="btn ghost" id="btn-shot" type="button" style="display:none">Capturer la photo</button>
+          <button class="btn ghost" id="btn-retry" type="button" style="display:none">Reprendre la photo</button>
+          <div class="note">🔑 Aucun code à saisir — votre code de test est attribué automatiquement.</div>
+          <div id="msg"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ÉTAPE 5 — NPI attribué -->
+    <section class="step" data-step="5" hidden>
+      <div class="card done">
+        <div class="big">✓</div>
+        <div class="steptitle" style="font-size:1.3rem">Vous êtes enrôlé, merci !</div>
+        <div class="npi-box">
+          <div class="k">Votre numéro d'identification (NPI)</div>
+          <div class="npi" id="done-npi">—</div>
+        </div>
+        <div class="phase2">📱 <span><b>Notez bien ce numéro.</b> Il vous est attribué et servira à la <b>phase 2 du test</b>, sur l'application mobile SIABIMS, pour vérifier que le système vous identifie correctement.</span></div>
+        <p style="margin-top:14px;font-size:.9rem">Vous pouvez fermer cette page. Merci pour votre participation !</p>
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <div class="navrow" id="navrow">
+      <button class="btn ghost" id="btn-prev" type="button">Précédent</button>
+      <button class="btn" id="btn-next" type="button">Suivant</button>
+    </div>
 
     <footer>
       <svg class="flag" width="18" height="12" viewBox="0 0 30 20" preserveAspectRatio="none" aria-label="Drapeau du Bénin"><rect width="30" height="20" fill="#FCD116"/><rect y="10" width="30" height="10" fill="#E8352F"/><rect width="12" height="20" fill="#008751"/></svg>
@@ -168,24 +207,53 @@
   </div>
 
 <script>
-  // Découverte du backend (même gist que l'app mobile / bureau).
+  // Backend découvert via le même gist que l'app. Code de test géré automatiquement.
   const DISCOVERY = "https://gist.githubusercontent.com/jocha28/ed59dea0a638810316deb7ca2698a09e/raw/siabims-endpoint.json";
-  let API = null, shotBlob = null, stream = null;
+  const ENROLL_CODE = "SIABIMS-TEST-2026";   // code anti-abus, envoyé automatiquement
+  const TITLES = ["", "Le projet", "Pourquoi participer", "Vos données & consentement", "Enrôlement", "Votre identifiant"];
+  const TOTAL = 5;
+  let step = 1, API = null, shotBlob = null, stream = null, enrolled = false;
 
   const $ = id => document.getElementById(id);
-  const msg = (t, ok) => { const m = $("msg"); m.textContent = t; m.className = "msg " + (ok ? "ok" : "err"); };
+  const msg = (t, ok) => { const m = $("msg"); if(!m) return; m.textContent = t; m.className = "msg " + (ok ? "ok" : "err"); };
 
   (async () => {
     try { const r = await fetch(DISCOVERY + "?t=" + Date.now(), { cache: "no-store" });
-      const d = await r.json(); API = (d.api || "").replace(/\/$/, ""); }
-    catch (e) { API = null; }
+      const d = await r.json(); API = (d.api || "").replace(/\/$/, ""); } catch (e) { API = null; }
   })();
 
-  function refreshSend() {
-    $("btn-send").disabled = !($("consent").checked && shotBlob);
+  function render() {
+    document.querySelectorAll(".step").forEach(s => { s.hidden = (+s.dataset.step !== step); });
+    // stepper
+    document.querySelectorAll(".dot").forEach(d => {
+      const n = +d.dataset.d; d.classList.toggle("done", n < step || (enrolled && n <= step));
+      d.classList.toggle("cur", n === step && !(enrolled && n < step));
+      d.textContent = (n < step || (enrolled && n <= step)) ? "✓" : n;
+    });
+    document.querySelectorAll(".bar").forEach(b => b.classList.toggle("done", +b.dataset.b < step));
+    $("steplabel").textContent = "Étape " + step + " sur " + TOTAL;
+    $("steptitle").textContent = TITLES[step];
+    $("steptitle").style.display = step === 5 ? "none" : "block";
+    // nav
+    const prev = $("btn-prev"), next = $("btn-next"), row = $("navrow");
+    if (step === 5) { row.style.display = "none"; return; }
+    row.style.display = "flex";
+    prev.style.display = step === 1 ? "none" : "flex";
+    next.textContent = step === 4 ? "M'enrôler" : "Suivant";
+    next.disabled = (step === 3 && !$("consent").checked);
   }
-  $("consent").addEventListener("change", refreshSend);
 
+  function go(n) {
+    step = Math.max(1, Math.min(TOTAL, n));
+    document.querySelector(`.step[data-step="${step}"]`)?.classList.add("fade");
+    render(); window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  $("consent").addEventListener("change", () => { $("btn-next").disabled = !$("consent").checked; });
+  $("btn-prev").addEventListener("click", () => go(step - 1));
+  $("btn-next").addEventListener("click", () => { if (step === 4) submit(); else go(step + 1); });
+
+  // Caméra (étape 4)
   $("btn-cam").addEventListener("click", async () => {
     try {
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 720 } } });
@@ -194,50 +262,40 @@
       $("btn-cam").style.display = "none"; $("btn-shot").style.display = "flex"; $("btn-retry").style.display = "none";
     } catch (e) { msg("Caméra inaccessible : autorisez l'accès dans le navigateur.", false); }
   });
-
   $("btn-shot").addEventListener("click", () => {
     const v = $("video"); if (!v.videoWidth) return;
-    const c = document.createElement("canvas");
-    const w = Math.min(720, v.videoWidth); const sc = w / v.videoWidth;
-    c.width = w; c.height = Math.round(v.videoHeight * sc);
-    c.getContext("2d").drawImage(v, 0, 0, c.width, c.height);
+    const c = document.createElement("canvas"); const w = Math.min(720, v.videoWidth), sc = w / v.videoWidth;
+    c.width = w; c.height = Math.round(v.videoHeight * sc); c.getContext("2d").drawImage(v, 0, 0, c.width, c.height);
     c.toBlob(b => {
-      shotBlob = b;
-      $("shot").src = URL.createObjectURL(b); $("shot").style.display = "block";
-      $("video").style.display = "none";
+      shotBlob = b; $("shot").src = URL.createObjectURL(b); $("shot").style.display = "block"; $("video").style.display = "none";
       if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-      $("btn-shot").style.display = "none"; $("btn-retry").style.display = "flex";
-      refreshSend();
+      $("btn-shot").style.display = "none"; $("btn-retry").style.display = "flex"; msg("", true);
     }, "image/jpeg", 0.85);
   });
+  $("btn-retry").addEventListener("click", () => { shotBlob = null; $("btn-cam").click(); });
 
-  $("btn-retry").addEventListener("click", () => { shotBlob = null; refreshSend(); $("btn-cam").click(); });
-
-  $("btn-send").addEventListener("click", async () => {
-    const code = $("code").value.trim(), nom = $("nom").value.trim(), prenoms = $("prenoms").value.trim();
+  async function submit() {
+    const nom = $("nom").value.trim(), prenoms = $("prenoms").value.trim();
     const dnais = $("dnais").value, sexe = $("sexe").value, ville = $("ville").value.trim();
-    if (!code) return msg("Saisissez le code de test.", false);
     if (!nom || !prenoms || !dnais || !sexe) return msg("Remplissez tous les champs obligatoires (*).", false);
-    if (!shotBlob) return msg("Capturez d'abord votre visage.", false);
-    if (!$("consent").checked) return msg("Le consentement est obligatoire.", false);
+    if (!shotBlob) return msg("Activez la caméra puis capturez votre visage.", false);
     if (!API) return msg("Serveur SIABIMS injoignable. Réessayez dans un instant.", false);
 
-    $("btn-send").disabled = true; msg("Enrôlement en cours…", true);
+    $("btn-next").disabled = true; msg("Enrôlement en cours…", true);
     const fd = new FormData();
     fd.append("nom", nom); fd.append("prenoms", prenoms); fd.append("date_nais", dnais);
-    fd.append("sexe", sexe); fd.append("ville", ville); fd.append("code", code);
-    fd.append("consentement", "true"); fd.append("photo", shotBlob, "visage.jpg");
+    fd.append("sexe", sexe); fd.append("ville", ville);
+    fd.append("code", ENROLL_CODE); fd.append("consentement", "true");
+    fd.append("photo", shotBlob, "visage.jpg");
     try {
       const r = await fetch(API + "/anip/enroler-public", { method: "POST", body: fd });
       const d = await r.json();
-      if (!r.ok) { msg(d.detail || "Échec de l'enrôlement.", false); $("btn-send").disabled = false; return; }
-      $("form").style.display = "none"; $("done").style.display = "block";
-      $("done-npi").textContent = d.npi || "—";
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    } catch (e) {
-      msg("Erreur réseau : " + e.message, false); $("btn-send").disabled = false;
-    }
-  });
+      if (!r.ok) { msg(d.detail || "Échec de l'enrôlement.", false); $("btn-next").disabled = false; return; }
+      enrolled = true; $("done-npi").textContent = d.npi || "—"; go(5);
+    } catch (e) { msg("Erreur réseau : " + e.message, false); $("btn-next").disabled = false; }
+  }
+
+  render();
 </script>
 </body>
 </html>
