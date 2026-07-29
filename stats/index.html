@@ -180,16 +180,29 @@
     if (c) {
       const camp = $("camp"); camp.style.display = "flex";
       const p = c.jours_total ? Math.round(c.jours_ecoules / c.jours_total * 100) : 0;
-      const etat = c.terminee ? '<span class="cr closed">Campagne terminée</span>'
-        : c.avant ? `<span class="cr">Débute le ${fmtD(c.debut)}</span>`
-        : `<span class="cr"><b>${c.jours_restants}</b> jour${c.jours_restants>1?"s":""} restant${c.jours_restants>1?"s":""}</span>`;
       camp.innerHTML = `<span class="cd">🗓️ Campagne de test</span>`
         + `<span class="cr">du ${fmtD(c.debut)} au ${fmtD(c.fin)}</span>`
-        + `<span class="cp"><i style="width:${p}%"></i></span>` + etat;
+        + `<span class="cp"><i style="width:${p}%"></i></span>`
+        + `<span class="cr" id="camp-remain"></span>`;
+      sCampEnd = c.fin_ts ? new Date(c.fin_ts) : null;
+      sCampBefore = !!c.avant; sCampDebut = c.debut;
+      tickCampStats();
     }
     $("maj").textContent = new Date().toLocaleTimeString("fr-FR");
   }
   function fmtD(iso){ if(!iso) return "-"; const [y,m,d]=iso.split("-"); return `${d}/${m}`; }
+  let sCampEnd=null, sCampBefore=false, sCampDebut=null;
+  function tickCampStats(){
+    const el=document.getElementById("camp-remain"); if(!el||!sCampEnd) return;
+    if(sCampBefore){ el.className="cr"; el.textContent="Débute le "+fmtD(sCampDebut); return; }
+    const diff=sCampEnd-new Date();
+    if(diff<=0){ el.className="cr closed"; el.textContent="Campagne terminée"; return; }
+    const j=Math.floor(diff/86400000),h=Math.floor(diff/3600000)%24,m=Math.floor(diff/60000)%60,ss=Math.floor(diff/1000)%60;
+    const pad=n=>String(n).padStart(2,"0");
+    el.className="cr";
+    el.innerHTML=`<b>${j} j ${pad(h)} h ${pad(m)} min ${pad(ss)} s</b> restants`;
+  }
+  setInterval(tickCampStats, 1000);
   function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
   async function tick(){
