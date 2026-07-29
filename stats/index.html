@@ -69,6 +69,12 @@
   .b-no{background:var(--red-soft);color:var(--red)}
   .b-nf{background:var(--gray-soft);color:var(--soft)}
   .empty{text-align:center;color:var(--muted);font-weight:700;padding:22px 0}
+  .camp{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:12px 16px;margin:16px 0 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .camp .cd{font-weight:900;font-size:.95rem;display:flex;align-items:center;gap:7px}
+  .camp .cr{font-size:.82rem;font-weight:800;color:var(--soft)}
+  .camp .cp{flex:1;min-width:120px;height:9px;background:var(--gray-soft);border-radius:6px;overflow:hidden}
+  .camp .cp i{display:block;height:100%;background:var(--green);border-radius:6px;transition:width .4s}
+  .camp .cr.closed{color:var(--red)}
   footer{color:var(--muted);font-size:.76rem;font-weight:700;text-align:center;padding:22px 0 8px}
   .flag{border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.15);vertical-align:middle}
   .err{background:var(--red-soft);color:var(--red);font-weight:800;text-align:center;padding:10px;border-radius:10px;margin:12px 0;display:none}
@@ -91,6 +97,8 @@
     </header>
 
     <div class="err" id="err"></div>
+
+    <div class="camp" id="camp" style="display:none"></div>
 
     <div class="kpis">
       <div class="kpi"><div class="k">Enrôlés</div><div class="v mono" id="k-enroles">-</div><div class="s">participants</div></div>
@@ -167,8 +175,21 @@
       return `<tr><td class="mono">${heure(r.quand)}</td><td>${b}</td><td>${who}</td><td class="mono">${cf}</td></tr>`;
     }).join("");
 
+    // Période de campagne
+    const c = s.campagne;
+    if (c) {
+      const camp = $("camp"); camp.style.display = "flex";
+      const p = c.jours_total ? Math.round(c.jours_ecoules / c.jours_total * 100) : 0;
+      const etat = c.terminee ? '<span class="cr closed">Campagne terminée</span>'
+        : c.avant ? `<span class="cr">Débute le ${fmtD(c.debut)}</span>`
+        : `<span class="cr"><b>${c.jours_restants}</b> jour${c.jours_restants>1?"s":""} restant${c.jours_restants>1?"s":""}</span>`;
+      camp.innerHTML = `<span class="cd">🗓️ Campagne de test</span>`
+        + `<span class="cr">du ${fmtD(c.debut)} au ${fmtD(c.fin)}</span>`
+        + `<span class="cp"><i style="width:${p}%"></i></span>` + etat;
+    }
     $("maj").textContent = new Date().toLocaleTimeString("fr-FR");
   }
+  function fmtD(iso){ if(!iso) return "-"; const [y,m,d]=iso.split("-"); return `${d}/${m}`; }
   function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
   async function tick(){
