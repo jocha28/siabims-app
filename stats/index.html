@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIABIMS - Tableau de bord du test</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f8f6;--panel:#fff;--ink:#182420;--soft:#5c675f;--muted:#8a958d;--hair:#e4eae6;
+    --green:#00A651;--edge:#00803e;--soft-green:#ddf4e7;--red:#E8352F;--red-soft:#fdecec;
+    --gray:#9aa7a0;--gray-soft:#eef1ef;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0b1310;--panel:#111a15;--ink:#e9f1ec;--soft:#9fb0a7;--muted:#6f8078;--hair:#212e27;
+    --green:#18bd6b;--edge:#0c9a54;--soft-green:#10261a;--red:#f2635c;--red-soft:#2a1513;
+    --gray:#66716b;--gray-soft:#18211c;
+  }}
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .tricolor{position:sticky;top:0;height:6px;display:flex;z-index:20}.tricolor i{flex:1}
+  .fg{background:#00A651}.fy{background:#FCD116}.fr{background:#E8352F}
+  .wrap{max-width:840px;margin:0 auto;padding:0 18px 48px}
+  .mono{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+  header.top{display:flex;align-items:center;gap:12px;padding:22px 0 6px}
+  .logo{width:46px;height:46px;border-radius:13px;background:var(--green);display:grid;place-items:center;flex:none;box-shadow:0 5px 0 var(--edge)}
+  header .t b{font-weight:900;font-size:1.1rem;display:block;line-height:1.1}
+  header .t span{font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .live{margin-left:auto;font-size:.74rem;font-weight:800;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .live .pulse{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,166,81,.5)}70%{box-shadow:0 0 0 7px rgba(0,166,81,0)}100%{box-shadow:0 0 0 0 rgba(0,166,81,0)}}
+  @media (prefers-reduced-motion:reduce){.live .pulse{animation:none}}
+
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+  @media (max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--panel);border:1px solid var(--hair);border-radius:16px;padding:16px 16px 14px}
+  .kpi .k{font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .kpi .v{font-size:2.2rem;font-weight:900;line-height:1.05;margin-top:6px;letter-spacing:-.02em}
+  .kpi .s{font-size:.76rem;font-weight:700;color:var(--soft);margin-top:2px}
+  .kpi.accent .v{color:var(--green)}
+
+  .card{background:var(--panel);border:1px solid var(--hair);border-radius:18px;padding:18px 18px;margin-top:12px}
+  .card h2{font-size:.95rem;font-weight:900;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+  .card h2 .tot{font-size:.78rem;font-weight:800;color:var(--muted)}
+
+  /* Barre de composition (statut : reconnu / non reconnu / sans visage) */
+  .bar{display:flex;height:26px;border-radius:8px;overflow:hidden;background:var(--gray-soft);gap:2px}
+  .bar span{display:block;min-width:2px}
+  .seg-ok{background:var(--green)}.seg-no{background:var(--red)}.seg-nf{background:var(--gray)}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px}
+  .lg{display:flex;align-items:center;gap:8px;font-size:.86rem;font-weight:800}
+  .lg .dot{width:12px;height:12px;border-radius:4px;flex:none}
+  .lg .c{color:var(--muted);font-weight:800}
+  .lg .n{color:var(--muted);font-weight:700;font-size:.78rem}
+  .dot-ok{background:var(--green)}.dot-no{background:var(--red)}.dot-nf{background:var(--gray)}
+
+  /* Table des derniers passages */
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th{text-align:left;font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:0 8px 8px;border-bottom:2px solid var(--hair)}
+  td{padding:9px 8px;border-bottom:1px solid var(--hair);font-weight:700}
+  tr:last-child td{border-bottom:none}
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:800;padding:3px 9px;border-radius:999px}
+  .b-ok{background:var(--soft-green);color:var(--edge)}
+  .b-no{background:var(--red-soft);color:var(--red)}
+  .b-nf{background:var(--gray-soft);color:var(--soft)}
+  .empty{text-align:center;color:var(--muted);font-weight:700;padding:22px 0}
+  footer{color:var(--muted);font-size:.76rem;font-weight:700;text-align:center;padding:22px 0 8px}
+  .flag{border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.15);vertical-align:middle}
+  .err{background:var(--red-soft);color:var(--red);font-weight:800;text-align:center;padding:10px;border-radius:10px;margin:12px 0;display:none}
+</style>
+</head>
+<body>
+  <div class="tricolor"><i class="fg"></i><i class="fy"></i><i class="fr"></i></div>
+  <div class="wrap">
+    <header class="top">
+      <div class="logo">
+        <svg width="30" height="30" viewBox="0 0 96 96"><g transform="translate(16,16) scale(0.667)">
+          <g fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round">
+            <path d="M48 12 a36 36 0 0 1 36 36"/><path d="M12 48 a36 36 0 0 1 22 -33"/><path d="M84 60 a36 36 0 0 1 -22 22"/>
+            <path d="M48 24 a24 24 0 0 1 24 24" opacity=".72"/><path d="M24 48 a24 24 0 0 1 14 -22" opacity=".72"/></g>
+          <g fill="#fff"><rect x="42" y="34" width="12" height="28" rx="4"/><rect x="34" y="42" width="28" height="12" rx="4"/></g>
+        </g></svg>
+      </div>
+      <div class="t"><b>Tableau de bord du test</b><span>SIABIMS · IA secouriste</span></div>
+      <div class="live"><span class="pulse"></span> EN DIRECT</div>
+    </header>
+
+    <div class="err" id="err"></div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="k">Enrôlés</div><div class="v mono" id="k-enroles">-</div><div class="s">participants</div></div>
+      <div class="kpi"><div class="k">Scans IA</div><div class="v mono" id="k-scans">-</div><div class="s">passages devant l'IA</div></div>
+      <div class="kpi accent"><div class="k">Taux de reconnaissance</div><div class="v mono" id="k-taux">-</div><div class="s" id="k-taux-s">sur visages détectés</div></div>
+      <div class="kpi"><div class="k">Confiance moyenne</div><div class="v mono" id="k-conf">-</div><div class="s">sur les reconnus</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Résultats des scans <span class="tot mono" id="b-tot">0 scan</span></h2>
+      <div class="bar" id="bar" role="img" aria-label="Répartition des résultats de scan"></div>
+      <div class="legend">
+        <div class="lg"><span class="dot dot-ok"></span> Reconnus <span class="c mono" id="lg-ok">0</span> <span class="n mono" id="lg-ok-p"></span></div>
+        <div class="lg"><span class="dot dot-no"></span> Non reconnus <span class="c mono" id="lg-no">0</span> <span class="n mono" id="lg-no-p"></span></div>
+        <div class="lg"><span class="dot dot-nf"></span> Sans visage <span class="c mono" id="lg-nf">0</span> <span class="n mono" id="lg-nf-p"></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Derniers passages</h2>
+      <table>
+        <thead><tr><th>Heure</th><th>Résultat</th><th>Personne</th><th>Confiance</th></tr></thead>
+        <tbody id="tbody"><tr><td colspan="4" class="empty">Aucun scan pour l'instant.</td></tr></tbody>
+      </table>
+    </div>
+
+    <footer>
+      <svg class="flag" width="18" height="12" viewBox="0 0 30 20" preserveAspectRatio="none" aria-label="Drapeau du Benin"><rect width="30" height="20" fill="#FCD116"/><rect y="10" width="30" height="10" fill="#E8352F"/><rect width="12" height="20" fill="#008751"/></svg>
+      &nbsp; République du Bénin · SIABIMS - métriques de test · mise à jour <span id="maj">-</span>
+    </footer>
+  </div>
+
+<script>
+  const DISCOVERY = "https://gist.githubusercontent.com/jocha28/ed59dea0a638810316deb7ca2698a09e/raw/siabims-endpoint.json";
+  const CODE = "SIABIMS-TEST-2026";
+  let API = null;
+  const $ = id => document.getElementById(id);
+  const pct = (n,t) => t ? Math.round(n/t*100) : 0;
+
+  async function discover(){ try{ const r=await fetch(DISCOVERY+"?t="+Date.now(),{cache:"no-store"});
+    const d=await r.json(); API=(d.api||"").replace(/\/$/,""); }catch(e){ API=null; } }
+
+  function heure(iso){ if(!iso) return "-"; const d=new Date(iso);
+    return d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}); }
+
+  function render(s){
+    $("err").style.display="none";
+    $("k-enroles").textContent = s.enroles;
+    $("k-scans").textContent   = s.scans;
+    $("k-taux").textContent    = s.taux==null ? "-" : Math.round(s.taux*100)+" %";
+    $("k-conf").textContent    = s.confiance_moy==null ? "-" : Math.round(s.confiance_moy*100)+" %";
+
+    const tot = s.scans||0;
+    $("b-tot").textContent = tot + (tot>1?" scans":" scan");
+    // barre de composition
+    const bar=$("bar"); bar.innerHTML="";
+    const segs=[["seg-ok",s.reconnus],["seg-no",s.non_reconnus],["seg-nf",s.sans_visage]];
+    if(tot===0){ bar.innerHTML='<span class="seg-nf" style="flex:1;opacity:.4"></span>'; }
+    else segs.forEach(([c,n])=>{ if(n>0){ const el=document.createElement("span"); el.className=c; el.style.flex=n; bar.appendChild(el); }});
+    $("lg-ok").textContent=s.reconnus; $("lg-no").textContent=s.non_reconnus; $("lg-nf").textContent=s.sans_visage;
+    $("lg-ok-p").textContent="("+pct(s.reconnus,tot)+"%)";
+    $("lg-no-p").textContent="("+pct(s.non_reconnus,tot)+"%)";
+    $("lg-nf-p").textContent="("+pct(s.sans_visage,tot)+"%)";
+
+    // derniers passages
+    const tb=$("tbody");
+    if(!s.recents||!s.recents.length){ tb.innerHTML='<tr><td colspan="4" class="empty">Aucun scan pour l\'instant.</td></tr>'; }
+    else tb.innerHTML=s.recents.map(r=>{
+      const b = r.identified ? '<span class="badge b-ok">Reconnu</span>'
+        : r.reason==="no_face" ? '<span class="badge b-nf">Sans visage</span>'
+        : '<span class="badge b-no">Non reconnu</span>';
+      const who = r.identified ? esc((r.prenoms||"")+" "+(r.nom||"")).trim() : "-";
+      const cf  = r.confidence!=null ? Math.round(r.confidence*100)+" %" : "-";
+      return `<tr><td class="mono">${heure(r.quand)}</td><td>${b}</td><td>${who}</td><td class="mono">${cf}</td></tr>`;
+    }).join("");
+
+    $("maj").textContent = new Date().toLocaleTimeString("fr-FR");
+  }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+  async function tick(){
+    if(!API){ await discover(); }
+    if(!API){ $("err").textContent="Serveur SIABIMS injoignable."; $("err").style.display="block"; return; }
+    try{
+      const r=await fetch(API+"/anip/stats-test?code="+encodeURIComponent(CODE)+"&t="+Date.now(),{cache:"no-store"});
+      if(!r.ok){ throw new Error("HTTP "+r.status); }
+      render(await r.json());
+    }catch(e){ $("err").textContent="Mise à jour impossible : "+e.message; $("err").style.display="block"; }
+  }
+  tick(); setInterval(tick, 5000);
+</script>
+</body>
+</html>
