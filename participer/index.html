@@ -61,6 +61,10 @@
   .cam video,.cam img{width:100%;height:100%;object-fit:cover;display:block}
   .cam .ph{color:#9aa;font-size:.85rem;font-weight:700;padding:20px;text-align:center}
   .note{font-size:.82rem;font-weight:700;color:var(--muted);display:flex;gap:7px;align-items:center;background:var(--bg);border:1.5px dashed var(--hair);border-radius:11px;padding:9px 12px}
+  .camp-banner{display:none;align-items:center;gap:8px;background:var(--soft-green);border:1px solid #a8e6c4;border-radius:12px;padding:9px 13px;margin:2px 0 12px;font-size:.82rem;font-weight:800;color:var(--edge)}
+  @media (prefers-color-scheme:dark){.camp-banner{border-color:#1c4b34}}
+  .camp-banner.closed{background:var(--warn-soft);border-color:#ecd9a3;color:#8a6d1a}
+  @media (prefers-color-scheme:dark){.camp-banner.closed{color:#e8b74a;border-color:#4a3f1c}}
 
   .btn{display:flex;align-items:center;justify-content:center;gap:9px;font-weight:900;font-size:1rem;text-transform:uppercase;letter-spacing:.4px;border:none;cursor:pointer;padding:15px;border-radius:15px;font-family:inherit;color:#fff;background:var(--green);border-bottom:5px solid var(--edge)}
   .btn:active{transform:translateY(3px);border-bottom-width:2px}
@@ -101,6 +105,9 @@
       </div>
       <div class="t"><b>SIABIMS</b><span>Campagne de test · Bénin</span></div>
     </header>
+
+    <!-- Durée restante de la campagne -->
+    <div class="camp-banner" id="campBanner"></div>
 
     <!-- Barre d'étapes -->
     <div class="stepper" id="stepper">
@@ -221,7 +228,21 @@
   (async () => {
     try { const r = await fetch(DISCOVERY + "?t=" + Date.now(), { cache: "no-store" });
       const d = await r.json(); API = (d.api || "").replace(/\/$/, ""); } catch (e) { API = null; }
+    loadCampagne();
   })();
+
+  function fmtD(iso){ if(!iso) return "-"; const [y,m,d]=iso.split("-"); return d+"/"+m; }
+  async function loadCampagne(){
+    if(!API) return;
+    try{
+      const r = await fetch(API + "/anip/campagne?t=" + Date.now(), { cache: "no-store" });
+      const c = await r.json();
+      const b = $("campBanner"); b.style.display = "flex";
+      if (c.terminee) { b.className = "camp-banner closed"; b.textContent = "🗓️ Campagne de test terminée (clôturée le " + fmtD(c.fin) + ")."; }
+      else if (c.avant) { b.className = "camp-banner closed"; b.textContent = "🗓️ La campagne débute le " + fmtD(c.debut) + "."; }
+      else { const j = c.jours_restants; b.textContent = "🗓️ Campagne de test · " + j + " jour" + (j>1?"s":"") + " restant" + (j>1?"s":"") + " (jusqu'au " + fmtD(c.fin) + ")"; }
+    }catch(e){}
+  }
 
   function render() {
     document.querySelectorAll(".step").forEach(s => { s.hidden = (+s.dataset.step !== step); });
